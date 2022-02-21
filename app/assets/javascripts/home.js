@@ -1,3 +1,4 @@
+import $ from 'jquery'
 
-jQuery(function(){
+$(function(){
 })

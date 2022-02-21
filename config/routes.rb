@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       get '/markets', to: 'markets#index'
       get '/market/:fmid', to: 'markets#show'
 
+      get '/states/:stateName/markets', to: 'states#markets'
       get '/user/:id', to: 'users#show'
     end
   end

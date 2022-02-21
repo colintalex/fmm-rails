@@ -107,3 +107,5 @@ var usaGeoJson = {
 
 ]
 }
+
+export default usaGeoJson;

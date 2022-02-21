@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_02_17_060607) do
+ActiveRecord::Schema[7.0].define(version: 2022_02_21_052842) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -37,7 +37,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_17_060607) do
     t.string "street"
     t.string "city"
     t.string "county"
-    t.string "state"
     t.string "zip"
     t.string "season1date"
     t.string "season1time"
@@ -86,6 +85,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_17_060607) do
     t.boolean "tofu"
     t.boolean "wildharvested"
     t.string "updatetime"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "state_id"
+    t.index ["state_id"], name: "index_markets_on_state_id"
+  end
+
+  create_table "states", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
