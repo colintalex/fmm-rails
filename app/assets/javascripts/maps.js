@@ -74,6 +74,7 @@ function getStateMarkets(stateName){
         var coords = L.latLng(y, x);
         var marker = L.marker(coords);
         marker.addTo(g_markets).setLatLng(coords);
+
       }
     });
   })
