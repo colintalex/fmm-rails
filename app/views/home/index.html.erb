@@ -2,7 +2,6 @@
   <%= javascript_import_module_tag 'home' %>
 <% end%>
 
-
 <div id="welcome_container">
   <div id="logo">
     <%= image_tag 'fmm_banner.png', id: 'fmm_banner' %>
@@ -10,5 +9,9 @@
 
   <div id="welcome_content">
     <%= link_to 'Map', '/map' %>
+    <% if !current_user.present? %>
+      <%= link_to 'Sign In', '/login' %>
+      <%= link_to 'Sign Up', '/register' %>
+    <% end %>
   </div>
 </div>

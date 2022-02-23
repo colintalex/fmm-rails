@@ -36,6 +36,7 @@ $(function () {
         let current = this.getBounds();
         this.setStyle(style2)
         mainMap.fitBounds(current)
+        mainMap.currentStateBds = current
         getStateMarkets(e.target.id)
       })
     }
@@ -74,8 +75,39 @@ function getStateMarkets(stateName){
         var coords = L.latLng(y, x);
         var marker = L.marker(coords);
         marker.addTo(g_markets).setLatLng(coords);
-
+        marker.on('click', function(){
+          getSingleMarket(market.id, marker._leaflet_id)
+        })
       }
     });
+  })
+}
+
+function getSingleMarket(marketId, markerId){
+  $.ajax({
+    url: `/api/v1/market/${marketId}`,
+    method: 'get',
+    success: function (data) {
+      $('#side_panel').show();
+      $('#market_details').empty().html(data.fmid)
+      $("#zoom_to_market").data("marker_id", markerId);
+      $('.marker-zoom-btn').on("click", function () {
+        console.log(this.id)
+        if (this.id == 'zoom_to_market'){
+          $("#zoom_to_market").hide();
+          $("#zoom_to_state_view").show();
+          let leafletId = $(this).data("marker_id");
+          let marker = g_markets.getLayer(leafletId);
+          mainMap.flyTo(marker.getLatLng(), 14);
+        }else{
+          $("#zoom_to_market").show();
+          $("#zoom_to_state_view").hide();
+          mainMap.fitBounds(mainMap.currentStateBds);
+        }
+      });
+    },
+    error: function(data) {
+      console.log(data)
+    }
   })
 }

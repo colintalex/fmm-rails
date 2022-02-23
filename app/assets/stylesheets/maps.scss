@@ -6,3 +6,15 @@
   padding: 10px;
   background: aquamarine;
 }
+
+#side_panel {
+  height: 400px;
+  width: 400px;
+  background-color: darkgray;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translate(0, -50%);
+  z-index: 1000;
+  border-radius: 10px;
+}
