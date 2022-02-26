@@ -10,13 +10,16 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#new'
   post '/logout', to: 'sessions#delete'
 
+  get '/user/:id', to: 'users#show'
+
   namespace :api do
     namespace :v1 do
       get '/markets', to: 'markets#index'
       get '/market/:id', to: 'markets#show'
 
       get '/states/:stateName/markets', to: 'states#markets'
-      get '/user/:id', to: 'users#show'
+      
+      post '/favorites/:market_id', to: 'user_favorites#create'
     end
   end
   # Defines the root path route ("/")

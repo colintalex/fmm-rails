@@ -13,6 +13,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+    if current_user && current_user.id.to_s == params[:id]
+      render 'show'
+    end
+  end
+
   private
 
   def user_params

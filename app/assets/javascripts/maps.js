@@ -3,6 +3,9 @@ import usageojson from './usageojson'
 
 var mainMap;
 var g_markets;
+var activeMarker;
+var activeMarket;
+
 $(function () {
   mainMap = L.map("map").setView([36, -102], 5);
   g_markets = L.featureGroup().addTo(mainMap);
@@ -41,7 +44,6 @@ $(function () {
       })
     }
   }).addTo(mainMap);
-  // getAllMarkets(mainMap);
 });
 
 function getAllMarkets() {
@@ -77,6 +79,7 @@ function getStateMarkets(stateName){
         marker.addTo(g_markets).setLatLng(coords);
         marker.on('click', function(){
           getSingleMarket(market.id, marker._leaflet_id)
+          activeMarker = marker;
         })
       }
     });
@@ -88,17 +91,29 @@ function getSingleMarket(marketId, markerId){
     url: `/api/v1/market/${marketId}`,
     method: 'get',
     success: function (data) {
+      activeMarket = data
       $('#side_panel').show();
       $('#market_details').empty().html(data.fmid)
       $("#zoom_to_market").data("marker_id", markerId);
+
+      $("#favor_market").on("click", function () {
+        $.ajax({
+          url: `/api/vi/favorites/${data.id}`,
+          method: 'post',
+          success: function(data){
+            debugger
+          },
+          error: function(error){
+            console.log("ERROR", error)
+          }
+        })
+      });
+
       $('.marker-zoom-btn').on("click", function () {
-        console.log(this.id)
         if (this.id == 'zoom_to_market'){
           $("#zoom_to_market").hide();
           $("#zoom_to_state_view").show();
-          let leafletId = $(this).data("marker_id");
-          let marker = g_markets.getLayer(leafletId);
-          mainMap.flyTo(marker.getLatLng(), 14);
+          mainMap.flyTo(activeMarker.getLatLng(), 14);
         }else{
           $("#zoom_to_market").show();
           $("#zoom_to_state_view").hide();

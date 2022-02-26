@@ -5,8 +5,8 @@ class Api::V1::MarketsController < ApplicationController
   end
 
   def show
-    @markets = Market.find_by(id: params[:id])
-    render json: @markets
+    @market = Market.find_by(id: params[:id])
+    render json: @market
   end
 
   private
