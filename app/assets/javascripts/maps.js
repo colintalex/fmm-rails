@@ -97,16 +97,7 @@ function getSingleMarket(marketId, markerId){
       $("#zoom_to_market").data("marker_id", markerId);
 
       $("#favor_market").on("click", function () {
-        $.ajax({
-          url: `/api/vi/favorites/${data.id}`,
-          method: 'post',
-          success: function(data){
-            debugger
-          },
-          error: function(error){
-            console.log("ERROR", error)
-          }
-        })
+        favoriteMarket();
       });
 
       $('.marker-zoom-btn').on("click", function () {
@@ -125,4 +116,23 @@ function getSingleMarket(marketId, markerId){
       console.log(data)
     }
   })
+}
+
+function favoriteMarket(){
+  var id = activeMarket.id
+  $.ajax({
+    url: `/api/v1/favorites/${id}`,
+    method: "post",
+    headers: {
+      "X-Transaction": "POST Example",
+      "X-CSRF-Token": $('meta[name="csrf-token"]').attr("content"),
+    },
+    success: function (data) {
+      $('#favor_market').hide();
+      $('#unfavor_market').show()
+    },
+    error: function (error) {
+      console.log("ERROR", error);
+    },
+  });
 }

@@ -3,3 +3,13 @@
 Welcome, <%= current_user.name %>!
 <br>
 E-Mail: <%= current_user.email %>
+
+<% if current_user.favorites.length > 0 %>
+  <% current_user.favorites.each do |fav| %>
+    <% mkt = fav.market %>
+    <p><%= mkt.fmid %></p>
+    <p><%= mkt.marketname %></p>
+    <p><%= mkt.city %>,<%= mkt.state.name.capitalize %></p>
+    <hr>
+  <% end %>
+<% end %>

@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
       get '/states/:stateName/markets', to: 'states#markets'
       
-      post '/favorites/:market_id', to: 'user_favorites#create'
+      post '/favorites/:market_id', to: 'favorites#create'
     end
   end
   # Defines the root path route ("/")
