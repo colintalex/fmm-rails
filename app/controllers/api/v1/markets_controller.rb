@@ -7,6 +7,7 @@ class Api::V1::MarketsController < ApplicationController
   def show
     @market = Market.find_by(id: params[:id])
     render json: @market
+    # respond_to :html
   end
 
   private

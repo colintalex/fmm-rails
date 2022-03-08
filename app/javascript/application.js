@@ -4,5 +4,5 @@ import "controllers";
 
 // L is available to all below imports
 import L from 'leaflet'
-
+import 'bootstrap'
 import 'home'

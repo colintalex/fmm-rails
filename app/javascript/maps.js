@@ -1,5 +1,19 @@
 import $ from "jquery";
 import usaGeoJson from "usageojson";
+import { html, render } from 'lit-html'
+
+const helloTemplate = (data) => html`
+  <div class="module">
+    <h2>Hello ${data.marketname}!</h2>
+    <p>${data.id}</p>
+    <p>${data.fmid}</p>
+    <p>${data.facebook}</p>
+    <p>${data.city}</p>
+    <p>${data.county}</p>
+    <p>${data.season1time}</p>
+    <p>${data.season1date}</p>
+  </div>
+`;
 
 // Globals below are locally global, may need to export app wide globals. Not accessible via devtools.
 var mainMap;
@@ -10,9 +24,15 @@ var activeState;
 
 $(function () {
   buildMap();
+  
+  $('#side_panel').on('click', '#close_side_panel', function(){
+    $('#side_panel').hide();
+  })
 });
 
 function buildMap() {
+  $('#side_panel').hide();
+  $('#zoom_to_state_view').hide();
   mainMap = L.map("map").setView([36, -102], 5);
 
   g_markets = L.featureGroup().addTo(mainMap);
@@ -47,15 +67,12 @@ function buildMap() {
         }
       });
       layer.on('click', function(e){
-        if (activeState == layer.id){
-          return;
-        }
-        activeState = layer.id;
-        let current = this.getBounds();
-        this.setStyle(style2)
-        mainMap.fitBounds(current)
-        mainMap.currentStateBds = current
-        getStateMarkets(e.target.id)
+          activeState = layer.id;
+          let current = this.getBounds();
+          this.setStyle(style2)
+          mainMap.fitBounds(current)
+          mainMap.currentStateBds = current
+          getStateMarkets(e.target.id)
       })
     }
   }).addTo(mainMap);
@@ -89,9 +106,9 @@ function getSingleMarket(marketId, markerId){
     url: `/api/v1/market/${marketId}`,
     method: 'get',
     success: function (data) {
-      activeMarket = data
+      activeMarket = data;
       $('#side_panel').show();
-      $('#market_details').empty().html(data.fmid)
+      buildMarketInfo(data)
       $("#zoom_to_market").data("marker_id", markerId);
 
       $("#favor_market").on("click", function () {
@@ -114,6 +131,11 @@ function getSingleMarket(marketId, markerId){
       console.log(data)
     }
   })
+}
+
+function buildMarketInfo(market){
+  var el = document.getElementById('market_details')
+  render(helloTemplate(market), el)
 }
 
 function favoriteMarket(){
