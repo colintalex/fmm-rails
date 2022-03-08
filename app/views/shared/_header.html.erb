@@ -12,6 +12,21 @@
         <li class="nav-item">
           <a class="nav-link" href="/map">Map</a>
         </li>
+        <% if !current_user.present? %>
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/register">Register</a>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <a class="nav-link" href="/user/<%= current_user.id %>">Profile</a>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Logout', logout_path, class: 'nav-link', data: { 'turbo-method': 'post' } %>
+          </li>
+        <% end %>
         <%# <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Dropdown

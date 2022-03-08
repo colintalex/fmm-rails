@@ -1,7 +1,11 @@
 <%= form_with(url: '/login', method: 'post') do |f| %>
-  <%= f.label :email %>
-  <%= f.text_field :email %>
-  <%= f.label :password %>
-  <%= f.text_field :password %>
+  <div class="mb-3">
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :password %>
+    <%= f.text_field :password %>
+  </div>
   <%= f.submit 'LogIn' %>
 <% end %>
