@@ -82,5 +82,3 @@ test:
 production:
   <<: *default
   database: fmm_rails_production
-  username: fmm_rails
-  password: <%= ENV["FMM_RAILS_DATABASE_PASSWORD"] %>
