@@ -1,15 +1,19 @@
-<h1>USERS SHOW PAGE</h1>
-
 Welcome, <%= current_user.name %>!
 <br>
 E-Mail: <%= current_user.email %>
 
+<div class="container mt-3">
+<div class="row">
 <% if current_user.favorites.length > 0 %>
   <% current_user.favorites.each do |fav| %>
-    <% mkt = fav.market %>
-    <p><%= mkt.fmid %></p>
-    <p><%= mkt.marketname %></p>
-    <p><%= mkt.city %>,<%= mkt.state.name.capitalize %></p>
-    <hr>
+    <div class="col">
+      <% mkt = fav.market %>
+      <% mkt.attributes.each do |k,v| %>
+        <p><%= k %>, <%= v %></p>
+      <% end %>
+        <hr>
+    </div>
   <% end %>
 <% end %>
+</div>
+</div>
