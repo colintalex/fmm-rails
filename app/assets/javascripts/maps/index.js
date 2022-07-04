@@ -1,13 +1,26 @@
 import $ from "jquery";
 import usageojson from '../usageojson'
 
+// Globals below are locally global, may need to export app wide globals. Not accessible via devtools.
 var mainMap;
 var g_markets;
 var activeMarker;
 var activeMarket;
+var activeState;
 
 $(function () {
+  buildMap();
+  
+  $('#side_panel').on('click', '#close_side_panel', function(){
+    $('#side_panel').hide();
+  })
+});
+
+function buildMap() {
+  $('#side_panel').hide();
+  $('#zoom_to_state_view').hide();
   mainMap = L.map("map").setView([36, -102], 5);
+
   g_markets = L.featureGroup().addTo(mainMap);
 
   addBasemap();
@@ -62,22 +75,6 @@ function addGeoJSON() {
   }).addTo(mainMap);
 }
 
-function getAllMarkets() {
-  function addMarkers(data) {}
-  $.ajax({
-    url: "api/v1/markets",
-    method: "GET",
-  }).done(function (data) {
-    data.forEach(function (market) {
-      let x = market.x;
-      let y = market.y;
-      if (x != null && y != null) {
-        var coords = L.latLng(y, x);
-        var marker = L.marker(coords);
-        marker.addTo(mainMap).setLatLng(coords);
-      }
-    });
-  });
 }
 
 function getStateMarkets(stateName){
@@ -114,6 +111,11 @@ function getSingleMarket(marketId, markerId){
       console.log(data)
     }
   })
+}
+
+function buildMarketInfo(market){
+  var el = document.getElementById('market_details')
+  render(helloTemplate(market), el)
 }
 
 function favoriteMarket(){

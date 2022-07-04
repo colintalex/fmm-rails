@@ -2,5 +2,10 @@
 import "@hotwired/turbo-rails";
 import "controllers";
 
-import $ from "jquery";
-import L from "leaflet";
+// L is available to all below imports
+import L from 'leaflet'
+
+import 'bootstrap'
+
+import 'home'
+

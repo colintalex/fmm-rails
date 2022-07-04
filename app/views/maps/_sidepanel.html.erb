@@ -1,0 +1,23 @@
+<div id="side_panel"  class='card p-3'>
+  <div class="">
+    <button type="button" id='close_side_panel' class="btn-close float-end" aria-label="Close"></button>
+  </div>
+  <div id="market_details">
+  
+  </div>
+  <button id='zoom_to_market' class='marker-zoom-btn'>
+    Zoom To Market
+  </button>
+  <button id='zoom_to_state_view' class='marker-zoom-btn'>
+    Zoom Out
+  </button>
+  <% if current_user.present? %>
+    <button id="favor_market">
+      Favorite Marker
+    </button>
+    <button id="unfavor_market" hidden>
+      UnFavorite Marker
+    </button>
+  <% end %>
+  <i class="fa-solid fa-file-lines"></i>
+</div>

@@ -18,17 +18,7 @@
   </head>
 
   <body class="<%= controller_name %>" id="<%= action_name %>">
-    <nav>
-      <% if current_user.present? %>
-        Welcome, <%= current_user.name %>!
-        <%= button_to 'LogOut', '/logout', method: :post %>
-        <% if controller_name == 'maps' %>
-          <%= link_to 'Profile', "/user/#{current_user.id}" %>
-        <% elsif controller_name == 'users' %>
-          <%= link_to 'Map', '/map' %>
-        <% end %>
-      <% end %>
-    </nav>
+    <%= render partial: 'shared/header' %>
     <% flash.each do |name, msg| %>
       <%= content_tag :div, msg, class: name %>
     <% end %>
