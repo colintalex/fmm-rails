@@ -1,0 +1,51 @@
+<div id='market_detials'>
+  <% fmid = market.fmid %>
+  <h3><%= market.marketname %></h3>
+    <hr>
+  <h4>
+    <%= market.street %>, <%= market.city %>
+    <%= market.county %>, <%= market.zip %>
+  </h4>
+  <% if market.valid_website %>
+    <a href="<%= market.website %>" target="_blank">Website</a>
+  <% end %>
+  <% if market.facebook && market.facebook.length > 9 %>
+    <a href="<%= market.facebook %>" target="_blank">facebook</a>
+  <% end %>
+  <% if market.twitter && market.twitter.length > 9 %>
+    <a href="<%= market.twitter %>" target="_blank">twitter</a>
+  <% end %>
+  <% if market.youtube && market.youtube.length > 9 %>
+    <a href="<%= market.youtube %>" target="_blank">youtube</a>
+  <% end %>
+  <% if market.othermedia && market.othermedia.length > 9 %>
+    <a href="<%= market.othermedia %>" target="_blank">othermedia</a>
+  <% end %>
+
+  <%= market.season1date %>
+  <%= market.season1time %>
+  <%= market.season2date %>
+  <%= market.season2time %>
+  <%= market.season3date %>
+  <%= market.season3time %>
+  <%= market.season4date %>
+  <%= market.season4time %>
+  <%= market.x %>
+  <%= market.y %>
+  <%= market.location %>
+
+</div>
+<button id='zoom_to_market' class='marker-zoom-btn' data-lng="<%= market.x %>" data-lat="<%= market.y %>">
+  Zoom To Market
+</button>
+<button id='zoom_to_state_view' class='marker-zoom-btn' hidden>
+  Zoom Out
+</button>
+<% if current_user.present? %>
+  <button id="favor_market">
+    Favorite Marker
+  </button>
+  <button id="unfavor_market" hidden>
+    UnFavorite Marker
+  </button>
+<% end %>
