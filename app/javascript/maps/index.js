@@ -1,5 +1,5 @@
-import $ from "jquery";
-import usageojson from '../../assets/javascripts/usageojson'
+
+import usageojson from '../usageojson'
 
 // Globals below are locally global, may need to export app wide globals. Not accessible via devtools.
 var mainMap;
