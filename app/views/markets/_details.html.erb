@@ -21,19 +21,18 @@
   <% if market.othermedia && market.othermedia.length > 9 %>
     <a href="<%= market.othermedia %>" target="_blank">othermedia</a>
   <% end %>
-
-  <%= market.season1date %>
-  <%= market.season1time %>
+  </br>
+  Season 1: <%= market.season1date %><br>
+  <%= market.season1time %><br>
   <%= market.season2date %>
-  <%= market.season2time %>
+  <%= market.season2time %><br>
   <%= market.season3date %>
-  <%= market.season3time %>
+  <%= market.season3time %><br>
   <%= market.season4date %>
   <%= market.season4time %>
-  <%= market.x %>
-  <%= market.y %>
-  <%= market.location %>
-
+  <%# <%= market.x %>
+  <%# <%= market.y %> 
+  <%# <%= market.location %>
 </div>
 <button id='zoom_to_market' class='marker-zoom-btn' data-lng="<%= market.x %>" data-lat="<%= market.y %>">
   Zoom To Market
