@@ -1,12 +1,11 @@
-
-import usageojson from '../usageojson'
+import $ from 'jquery';
+import usageojson from '../usageojson';
 
 // Globals below are locally global, may need to export app wide globals. Not accessible via devtools.
-var mainMap;
 var g_markets;
 var activeMarker;
 var activeMarket;
-var activeState;
+var activeState = '';
 
 $(function () {
   buildMap();
@@ -47,10 +46,13 @@ function addBasemap() {
 
 function addGeoJSON() {
   var style1 = {
-    color: "blue",
+    color: "gray",
   };
   var style2 = {
     color: "red",
+  };
+  var style3 = {
+    color: "green",
   };
   L.geoJSON(usageojson, {
     style: function (feature) {
@@ -59,14 +61,18 @@ function addGeoJSON() {
     onEachFeature: function (feature, layer) {
       layer.id = feature.properties.NAME;
       layer.on("mouseover", function (e) {
-        this.setStyle(style2);
+        if (activeState != this.id){
+          this.setStyle(style2);
+        }
       });
       layer.on("mouseout", function (e) {
-        this.setStyle({ color: style1 });
+        if (activeState != this.id)
+          this.setStyle(style1);
       });
       layer.on("click", function (e) {
+        activeState = layer.id;
         let current = this.getBounds();
-        this.setStyle(style2);
+        this.setStyle(style3);
         mainMap.fitBounds(current);
         mainMap.currentStateBds = current;
         getStateMarkets(e.target.id);

@@ -2,9 +2,12 @@
 import "@hotwired/turbo-rails";
 // import "controllers";
 
+var mainMap;
+
 // L is available to all below imports
-import $ from "jquery";
+import "jquery";
 import L from 'leaflet'
 import 'bootstrap'
 import './maps/index'
+
 
