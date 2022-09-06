@@ -3,9 +3,9 @@ import usageojson from '../usageojson';
 
 // Globals below are locally global, may need to export app wide globals. Not accessible via devtools.
 var g_markets;
-var activeMarker;
 var activeMarket;
-var activeState = '';
+var activeMarker;  
+var activeState;
 
 $(function () {
   buildMap();
@@ -26,10 +26,15 @@ function buildMap() {
   addGeoJSON();
 
   $('#side_panel').on('click', '#zoom_to_market', function() {
+    $("#zoom_to_state_view").attr('hidden', false);
     var lng = this.dataset.lng;
     var lat = this.dataset.lat;
-    var coords = new L.latLng(lat, lng)
-    mainMap.setView(coords, 12)
+    var coords = new L.latLng(lat, lng);
+    mainMap.setView(coords, 12);
+  });
+  $("#side_panel").on("click", "#zoom_to_state_view", function () {
+    mainMap.fitBounds(activeState.getBounds());
+    $("#zoom_to_state_view").attr("hidden", true);
   });
 };
 
@@ -61,16 +66,20 @@ function addGeoJSON() {
     onEachFeature: function (feature, layer) {
       layer.id = feature.properties.NAME;
       layer.on("mouseover", function (e) {
-        if (activeState != this.id){
-          this.setStyle(style2);
-        }
+        if (activeState && activeState.id == this.id) return; 
+
+        this.setStyle(style2);
       });
       layer.on("mouseout", function (e) {
-        if (activeState != this.id)
-          this.setStyle(style1);
+        if (activeState && activeState.id == this.id) return;
+        
+        this.setStyle(style1);
       });
       layer.on("click", function (e) {
-        activeState = layer.id;
+        if (activeState != undefined && activeState != this){
+          activeState.setStyle(style1);
+        }
+        activeState = this;
         let current = this.getBounds();
         this.setStyle(style3);
         mainMap.fitBounds(current);

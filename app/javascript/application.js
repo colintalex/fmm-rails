@@ -3,9 +3,10 @@ import "@hotwired/turbo-rails";
 // import "controllers";
 
 var mainMap;
-
+var activeMarker = "";
+var activeState = "";
 // L is available to all below imports
-import "jquery";
+import $ from "jquery";
 import L from 'leaflet'
 import 'bootstrap'
 import './maps/index'
