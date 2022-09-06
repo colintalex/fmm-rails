@@ -97,7 +97,6 @@ function getStateMarkets(stateName){
         marker.on('click', function(){
           getSingleMarket(market.id, marker._leaflet_id)
           activeMarker = this;
-          console.log(activeMarker)
         })
       }
     });
