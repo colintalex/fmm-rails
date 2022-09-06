@@ -5,7 +5,6 @@ class Market < ApplicationRecord
   belongs_to :state
   
   def valid_website
-    return true if website.length > 6
-    return false
+    website.present? && website.length > 6
   end
 end

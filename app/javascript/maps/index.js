@@ -56,7 +56,7 @@ function addGeoJSON() {
   };
   L.geoJSON(usageojson, {
     style: function (feature) {
-      return { color: style2 };
+      return style1;
     },
     onEachFeature: function (feature, layer) {
       layer.id = feature.properties.NAME;
@@ -96,7 +96,8 @@ function getStateMarkets(stateName){
         marker.addTo(g_markets).setLatLng(coords);
         marker.on('click', function(){
           getSingleMarket(market.id, marker._leaflet_id)
-          activeMarker = marker;
+          activeMarker = this;
+          console.log(activeMarker)
         })
       }
     });
