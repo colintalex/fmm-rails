@@ -7,12 +7,14 @@ var activeMarket;
 var activeMarker;  
 var activeState;
 
-$(function () {
-  buildMap();
-  
-  $('#side_panel').on('click', '#close_side_panel', function(){
-    $('#side_panel').hide();
-  })
+$(function() {
+  if ($('#index.maps').length > 0) {
+    buildMap();
+
+    $("#side_panel").on("click", "#close_side_panel", function () {
+      $("#side_panel").hide();
+    });
+  }
 });
 
 function buildMap() {
@@ -30,7 +32,7 @@ function buildMap() {
     var lng = this.dataset.lng;
     var lat = this.dataset.lat;
     var coords = new L.latLng(lat, lng);
-    mainMap.setView(coords, 12);
+    mainMap.setView(coords, 15);
   });
   $("#side_panel").on("click", "#zoom_to_state_view", function () {
     mainMap.fitBounds(activeState.getBounds());
@@ -82,6 +84,7 @@ function addGeoJSON() {
         activeState = this;
         let current = this.getBounds();
         this.setStyle(style3);
+        this.bringToFront();
         mainMap.fitBounds(current);
         mainMap.currentStateBds = current;
         getStateMarkets(e.target.id);

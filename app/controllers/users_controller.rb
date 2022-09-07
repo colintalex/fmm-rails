@@ -9,6 +9,7 @@ class UsersController < ApplicationController
       session[:current_user] = user.id
       redirect_to '/'
     else
+      flash[:error] = user
       render "new"
     end
   end
