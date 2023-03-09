@@ -1,0 +1,61 @@
+# See: https://docs.mongodb.com/mongoid/master/tutorials/mongoid-configuration/
+client_options: &client_options
+  read:
+    mode:                   :primary
+  write:
+    w:                      1
+  connect_timeout:          10
+  socket_timeout:           300
+  # Includes the time taken to re-establish after a replica-set refresh
+  wait_queue_timeout:       125
+  server_selection_timeout: 120
+  max_read_retries:         20
+  max_write_retries:        10
+  max_pool_size:            50
+  min_pool_size:            1
+
+mongoid_options: &mongoid_options
+  preload_models: true
+  scope_overwrite_exception: true
+  use_utc: true
+
+development:
+  clients:
+    default: &default_development
+      uri: mongodb://127.0.0.1:27017/rocketjob_development
+      options:
+        <<: *client_options
+    rocketjob:
+      <<: *default_development
+    rocketjob_slices:
+      <<: *default_development
+  options:
+    <<: *mongoid_options
+
+test:
+  clients:
+    default: &default_test
+      uri: mongodb://127.0.0.1:27017/rocketjob_test
+      options:
+        <<: *client_options
+    rocketjob:
+      <<: *default_test
+    rocketjob_slices:
+      <<: *default_test
+  options:
+    <<: *mongoid_options
+
+production:
+  clients:
+    default: &default_production
+      uri: mongodb://user:secret@server.example.org:27017,server2.example.org:27017/rocketjob_production
+      options:
+        <<: *client_options
+    rocketjob:
+      <<: *default_production
+    rocketjob_slices:
+      <<: *default_production
+      # Optionally Specify a different database or even server to store slices on
+      # uri: mongodb://user:secret@server3.example.org:27017/slices_production
+  options:
+    <<: *mongoid_options

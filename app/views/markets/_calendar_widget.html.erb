@@ -1,11 +1,22 @@
-<%= market.season1date %><br>
-<%= market.season1time %><br>
+<%= market.season1date %>
+<br>
+<%= market.season1time %>
 
-<%= market.season2date %>
-<%= market.season2time %><br>
-
-<%= market.season3date %>
-<%= market.season3time %><br>
-
-<%= market.season4date %>
-<%= market.season4time %>
+<% if market.season2date %>
+  <hr>
+  <%= market.season2date %>
+  <br>
+  <%= market.season2time %>
+<% end %>
+<% if market.season3date %>
+  <hr>
+  <%= market.season3date %>
+  <br>
+  <%= market.season3time %>
+<% end %>
+<% if market.season4date %>
+  <hr>
+  <%= market.season4date %>
+  <br>
+  <%= market.season4time %>
+<% end %>

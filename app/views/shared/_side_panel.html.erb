@@ -1,4 +1,4 @@
-<div id="side_panel"  class='card p-3'>
+<div id="side_panel" class="card p-3 bg-light ">
   <div class="">
     <button type="button" id='close_side_panel' class="btn-close float-end" aria-label="Close"></button>
   </div>
@@ -11,7 +11,7 @@
   <button id='zoom_to_state_view' class='marker-zoom-btn'>
     Zoom Out
   </button>
-  <% if current_user.present? %>
+  <% if current_user&.present? %>
     <button id="favor_market">
       Favorite Market
     </button>

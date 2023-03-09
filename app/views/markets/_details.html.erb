@@ -1,38 +1,41 @@
 <div id='market_details'>
   <% fmid = market.fmid %>
   <h3><%= market.marketname %></h3>
-    <hr>
+  <hr>
   <h4>
     <%= market.street %>, <%= market.city %>
     <%= market.county %>, <%= market.zip %>
   </h4>
-  <% if market.valid_website %>
-    <a href="<%= market.website %>" target="_blank">
-    <i class="fa-solid fa-earth-europe"></i>
-    </a>
-  <% end %>
-  <% if market.facebook && market.facebook.length > 9 %>
-    <a href="<%= market.facebook %>" target="_blank">
-      <i class="fa-brands fa-square-facebook"></i>
-    </a>
-  <% end %>
-  <% if market.twitter && market.twitter.length > 9 %>
-    <a href="<%= market.twitter %>" target="_blank">
-      <i class="fa-brands fa-square-twitter"></i>
-    </a>
-  <% end %>
-  <% if market.youtube && market.youtube.length > 9 %>
-    <a href="<%= market.youtube %>" target="_blank">
-      <i class="fa-brands fa-youtube"></i>
-    </a>
-  <% end %>
-  <% if market.othermedia && market.othermedia.length > 9 %>
-    <a href="<%= market.othermedia %>" target="_blank">
-      <i class="fa-brands fa-square-instagram"></i>
-    </a>
-  <% end %>
-  </br>
+  <hr>
   <%= render partial: 'markets/calendar_widget', locals: {market: market} %>
+  <hr>
+  <div class="market_socials">
+    <% if market.valid_website %>
+      <a href="<%= market.website %>" target="_blank">
+      <i class="fa-solid fa-earth-europe"></i>
+      </a>
+    <% end %>
+    <% if market.facebook && market.facebook.length > 9 %>
+      <a href="<%= market.facebook %>" target="_blank">
+        <i class="fa-brands fa-square-facebook"></i>
+      </a>
+    <% end %>
+    <% if market.twitter && market.twitter.length > 9 %>
+      <a href="<%= market.twitter %>" target="_blank">
+        <i class="fa-brands fa-square-twitter"></i>
+      </a>
+    <% end %>
+    <% if market.youtube && market.youtube.length > 9 %>
+      <a href="<%= market.youtube %>" target="_blank">
+        <i class="fa-brands fa-youtube"></i>
+      </a>
+    <% end %>
+    <% if market.othermedia && market.othermedia.length > 9 %>
+      <a href="<%= market.othermedia %>" target="_blank">
+        <i class="fa-brands fa-square-instagram"></i>
+      </a>
+    <% end %>
+  </div>
 </div>
 <button id='zoom_to_market' class='marker-zoom-btn' data-lng="<%= market.x %>" data-lat="<%= market.y %>">
   Zoom To Market
@@ -48,4 +51,6 @@
 <button id="unfavor_market" hidden>
   UnFavorite Market
 </button>
+<% else %>
+  <p><a href="/login">Login</a> or <a href="/register">Register</a> to Favorite Markets Near You</p>
 <% end %>

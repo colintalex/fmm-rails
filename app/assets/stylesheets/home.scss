@@ -1,17 +1,32 @@
 .home#index {
-  background: url('https://cdn1.vectorstock.com/i/1000x1000/48/55/red-marker-with-map-on-sky-background-with-clouds-vector-26894855.jpg');
-  background-size: inherit;
+  background: url(asset-path('world.png'));
+  background-size: cover;
+  background-position: center;
+  background-color: black;
+  background-blend-mode: hard-light;
+  background-position-x: -200px;
+  background-repeat: no-repeat;
+}
+
+#home_container {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  height: calc(100vh - 60px);
 }
 
 #welcome_container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: blue;
-  height: 50%;
-  width: 50%;
-  border-radius: 12px;
+  text-align: center;
+
+  img {
+    width: 70%
+  }
+
+  #logo {
+    margin-bottom: 20px;
+  }
+}
+.navbar-brand img {
+  height: 60px !important;
 }
 
 #welcome_content {
